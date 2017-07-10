@@ -1,0 +1,22 @@
+Link schema
+{
+	_id: d9as8d9890asd0,
+	name: google,
+	url: https://google.com,
+	short_url: asd,
+	owner: asd899asd,
+	requires_login: yes
+	requires_password: yes,
+	password: hunter2,
+	expires: yes,
+	expires_after: 1499399630
+}
+
+User schema
+{
+	_id: as90da90sda1,
+	username: andy,
+	password: hunter2,
+	roles: handled_by_roles_package,
+
+}

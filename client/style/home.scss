@@ -1,0 +1,15 @@
+@import "_vars";
+
+.large-input input, .url-input input, .short-url input {
+	font-size: 35px !important;
+	height: 4.5rem !important;
+}
+
+.large-input label, .url-input label, .go-prefix {
+	font-size: 35px;
+}
+
+.short-url {
+	margin-left: 0 !important;
+	margin-top: 0 !important;
+}
