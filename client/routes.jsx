@@ -7,6 +7,7 @@ import LinkPage from "./components/LinkPage";
 import RequireLogIn from "./components/RequireLogIn";
 import RequirePassword from "./components/RequirePassword";
 import Success from "./components/Success";
+import YourLinks from "./components/YourLinks";
 
 Links = new Mongo.Collection("links");
 
@@ -26,6 +27,14 @@ FlowRouter.route('/login', {
 	action() {
 		mount(MainLayout, {
 			content: (<Login />)
+		});
+	}
+});
+
+FlowRouter.route("/links", {
+	action() {
+		mount(MainLayout, {
+			content: <YourLinks />
 		});
 	}
 });
