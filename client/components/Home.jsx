@@ -15,6 +15,25 @@ export default class Home extends Component {
 		this.updateExpiresField = this.updateExpiresField.bind(this);
 	}
 
+	componentDidMount() {
+		// Remove disallowed characters from the short-url input
+		let firstAlphanumericWarning = true; // don't show the warning message more than once
+		$('#short-url').on('input', function() {
+			let c = this.selectionStart,
+				r = /[^a-z0-9]/gi,
+				v = $(this).val();
+			if(r.test(v)) {
+				$(this).val(v.replace(r, ''));
+				c--;
+				if (firstAlphanumericWarning) {
+					Materialize.toast("Ony alphanumeric characters are allowed (A-Z, a-z, 0-9)", 6000);
+					firstAlphanumericWarning = false;
+				}
+			}
+			this.setSelectionRange(c, c);
+		});
+	}
+
 	updatePasswordField() {
 		this.setState({
 			passwordChecked: !this.state.passwordChecked
@@ -97,7 +116,7 @@ export default class Home extends Component {
 					</div>
 					<span className="go-prefix">go/</span>
 					<div className="input-field inline large-input short-url">
-						<input id="short-url" type="text" placeholder={this.state.randomUrl} autoComplete="off" />
+						<input id="short-url" type="text" placeholder={this.state.randomUrl} autoComplete="off" pattern="^[A-Za-z0-9]*$" />
 					</div>
 					<div>
 						<input type="checkbox" className="filled-in" id="require-login" />
