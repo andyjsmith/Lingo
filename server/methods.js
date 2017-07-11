@@ -11,6 +11,7 @@ function verifyName(name){
 
 Meteor.methods({
 	'links.addLink'({name, url, owner, require_login, require_password, password, expires, expires_after}) {
+		name = name.toLowerCase();
 		if (!Meteor.userId()) throw new Meteor.Error('not-authorized');
 		try {
 			check(name, String);
@@ -50,6 +51,7 @@ Meteor.methods({
 	},
 
 	'links.getLink'({name}) {
+		name = name.toLowerCase();
 		let link = Links.findOne({"name": name});
 		delete link.password;
 		if (link.require_login || link.require_password) {
@@ -60,6 +62,7 @@ Meteor.methods({
 	},
 
 	'link.verifyPassword'({name, password}) {
+		name = name.toLowerCase();
 		let link = Links.findOne({"name": name});
 		if (link.require_login && !Meteor.userId()) throw new Meteor.Error('not-authorized');
 		if (password === link.password) {
@@ -70,6 +73,7 @@ Meteor.methods({
 	},
 
 	'link.verifyLogin'({name}) {
+		name = name.toLowerCase();
 		let link = Links.findOne({"name": name});
 		if (Meteor.userId() && !link.require_password) return {url: link.url};
 	},
