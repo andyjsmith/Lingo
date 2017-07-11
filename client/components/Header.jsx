@@ -23,15 +23,16 @@ export default class Header extends TrackerReact(React.Component) {
 		let adminMenu = Roles.getRolesForUser(Meteor.userId()).indexOf("admin") !== -1 ?
 			<div>
 				<li className="divider" />
-				<li><a href="">Users</a></li>
-				<li><a href="">All Links</a></li>
+				<li><a href="/users">Users</a></li>
+				<li><a href="/all">All Links</a></li>
 			</div> : "";
 
 		let menu = Meteor.userId() ? <div>
 			<button className="menu-btn btn" data-activates="menu-dropdown"><i className="fa fa-bars" aria-hidden="true" /></button>
 			<ul id="menu-dropdown" className="dropdown-content">
-				<li><a href="">Your Links</a></li>
-				<li><a href="" onClick={this.logOut.bind(this)}>Log Out</a></li>
+				<li><a href="/">Create Link</a></li>
+				<li><a href="/links">Your Links</a></li>
+				<li><a href="#" onClick={this.logOut.bind(this)}>Log Out</a></li>
 				{adminMenu}
 			</ul>
 		</div> : "";
