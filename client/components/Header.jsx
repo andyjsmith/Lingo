@@ -1,6 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
+import TrackerReact from "meteor/ultimatejs:tracker-react";
 
-export default class Header extends Component {
+export default class Header extends TrackerReact(React.Component) {
+	componentDidMount() {
+		$('.menu-btn').dropdown({
+			inDuration: 300,
+			outDuration: 225,
+			constrain_width: true,
+			hover: false,
+			gutter: 0,
+			belowOrigin: false
+		});
+	}
+
 	logOut() {
 		Meteor.logout(() => {
 			FlowRouter.go("/login");
@@ -8,7 +20,21 @@ export default class Header extends Component {
 	}
 
 	render() {
-		let logOutBtn = Meteor.userId() ? <button className="btn logout-btn" onClick={this.logOut.bind(this)}>Log Out</button> : "";
+		let adminMenu = Roles.getRolesForUser(Meteor.userId()).indexOf("admin") !== -1 ?
+			<div>
+				<li className="divider" />
+				<li><a href="">Users</a></li>
+				<li><a href="">All Links</a></li>
+			</div> : "";
+
+		let menu = Meteor.userId() ? <div>
+			<button className="menu-btn btn" data-activates="menu-dropdown"><i className="fa fa-bars" aria-hidden="true" /></button>
+			<ul id="menu-dropdown" className="dropdown-content">
+				<li><a href="">Your Links</a></li>
+				<li><a href="" onClick={this.logOut.bind(this)}>Log Out</a></li>
+				{adminMenu}
+			</ul>
+		</div> : "";
 
 		return (
 			<div className="header">
@@ -24,7 +50,7 @@ export default class Header extends Component {
 					</div>
 				</div>
 				<div className="nav-right">
-					{logOutBtn}
+					{menu}
 				</div>
 			</div>
 		)
