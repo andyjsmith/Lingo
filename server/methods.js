@@ -10,13 +10,12 @@ function verifyName(name){
 }
 
 Meteor.methods({
-	'links.addLink'({name, url, owner, require_login, require_password, password, expires, expires_after}) {
+	'links.addLink'({name, url, require_login, require_password, password, expires, expires_after}) {
 		name = name.toLowerCase();
 		if (!Meteor.userId()) throw new Meteor.Error('not-authorized');
 		try {
 			check(name, String);
 			check(url, String);
-			check(owner, String);
 			check(require_login, Boolean);
 			check(require_password, Boolean);
 			if (require_password) check(password, String);
@@ -38,7 +37,7 @@ Meteor.methods({
 			Links.insert({
 				"name": name,
 				"url": url,
-				"owner": owner,
+				"owner": Meteor.userId(),
 				"require_login": require_login,
 				"require_password": require_password,
 				"password": password,
@@ -53,6 +52,7 @@ Meteor.methods({
 	'links.getLink'({name}) {
 		name = name.toLowerCase();
 		let link = Links.findOne({"name": name});
+		if (!link) throw new Meteor.Error("non-existent");
 		delete link.password;
 		if (link.require_login || link.require_password) {
 			delete link.password;

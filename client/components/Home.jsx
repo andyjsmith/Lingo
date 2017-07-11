@@ -67,7 +67,6 @@ export default class Home extends Component {
 		Meteor.call("links.addLink", {
 			name: name,
 			url: $("#url").val(),
-			owner: Meteor.user().username,
 			require_login: $("#require-login").is(':checked'),
 			require_password: $("#require-password").is(':checked'),
 			password: $("#password").val(),
