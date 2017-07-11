@@ -6,7 +6,7 @@ function authenticate(roles) {
 }
 
 function verifyName(name){
-	return name.matches("^[a-zA-Z0-9]+$");
+	return /^\w+$/.test(name);
 }
 
 Meteor.methods({
