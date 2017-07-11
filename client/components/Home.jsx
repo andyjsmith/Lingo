@@ -37,18 +37,6 @@ export default class Home extends Component {
 		return text;
 	}
 
-	clearInputFields() {
-		$("#short-url").val("");
-		$("#url").val("");
-		$("#require-login").prop('checked', false);
-		$("#require-password").prop('checked', false);
-		$("#password").val("");
-		$("#expires").prop('checked', false);
-		$("#expires-date").val("");
-		this.state.randomUrl = this.randomId();
-		this.setState(this.state);
-	}
-
 	createLink(event) {
 		if (event) {
 			event.preventDefault();
@@ -56,7 +44,6 @@ export default class Home extends Component {
 		}
 
 		let name = $("#short-url").val() === "" ? this.state.randomUrl : $("#short-url").val();
-		let _this = this;
 
 		Meteor.call("links.addLink", {
 			name: name,
@@ -77,12 +64,11 @@ export default class Home extends Component {
 						Materialize.toast('Something is wrong with your input. Make sure you filled out all the fields.', 4000);
 						break;
 					default:
+						console.log(error);
 						Materialize.toast('Something went wrong!', 4000);
 				}
 			} else {
-				Materialize.toast("Success", 4000);
 				FlowRouter.go("/success/" + name);
-				_this.clearInputFields();
 			}
 		});
 	}
