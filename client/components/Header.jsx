@@ -2,7 +2,17 @@ import React from 'react';
 import TrackerReact from "meteor/ultimatejs:tracker-react";
 
 export default class Header extends TrackerReact(React.Component) {
+	constructor() {
+		super();
+		console.log("construct");
+	}
+
 	componentDidMount() {
+		console.log("mount");
+		this.createMenuBtn();
+	}
+
+	createMenuBtn() {
 		$('.menu-btn').dropdown({
 			inDuration: 300,
 			outDuration: 225,
@@ -36,6 +46,8 @@ export default class Header extends TrackerReact(React.Component) {
 				{adminMenu}
 			</ul>
 		</div> : "";
+
+		this.createMenuBtn();
 
 		return (
 			<div className="header">
