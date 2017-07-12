@@ -28,7 +28,7 @@ export default class Header extends TrackerReact(React.Component) {
 	}
 
 	render() {
-		let adminMenu = Roles.getRolesForUser(Meteor.userId()).indexOf("admin") !== -1 ?
+		let adminMenu = Roles.userIsInRole(Meteor.userId(), "admin") ?
 			<div>
 				<li className="divider" />
 				<li><a href="/users">Users</a></li>
