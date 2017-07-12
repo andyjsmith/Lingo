@@ -4,6 +4,13 @@ import TrackerReact from "meteor/ultimatejs:tracker-react";
 export default class YourLinks extends TrackerReact(React.Component) {
 	componentDidMount() {
 		Meteor.subscribe("links.userLinks");
+		$
+	}
+
+	deleteLink(name) {
+		Meteor.call("links.deleteLink", {
+			name: name
+		});
 	}
 
 	render() {
@@ -31,7 +38,7 @@ export default class YourLinks extends TrackerReact(React.Component) {
 							<td>{link.require_login ? "Yes" : "No"}</td>
 							<td>{link.require_password ? "Yes" : "No"}</td>
 							<td>{link.expires ? date.toLocaleDateString() + " " + date.toLocaleTimeString() : "No"}</td>
-							<td><button className="btn"><i className="fa fa-trash-o" aria-hidden="true" /></button></td>
+							<td><button className="btn" onClick={this.deleteLink.bind(this, link.name)}><i className="fa fa-trash-o" aria-hidden="true" /></button></td>
 						</tr>
 					})}
 				</tbody>

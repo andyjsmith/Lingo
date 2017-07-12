@@ -8,6 +8,7 @@ import RequireLogIn from "./components/RequireLogIn";
 import RequirePassword from "./components/RequirePassword";
 import Success from "./components/Success";
 import YourLinks from "./components/YourLinks";
+import AllLinks from "./components/AllLinks";
 
 Links = new Mongo.Collection("links");
 
@@ -38,6 +39,19 @@ FlowRouter.route("/links", {
 		});
 	}
 });
+
+FlowRouter.route("/all", {
+	action() {
+		if (Roles.userIsInRole(Meteor.userId(), "admin")) {
+			mount(MainLayout, {
+				content: <AllLinks />
+			});
+		} else {
+			FlowRouter.go("/");
+		}
+	}
+});
+
 
 FlowRouter.route('/:name', {
 	action(params) {

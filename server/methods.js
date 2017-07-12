@@ -61,6 +61,24 @@ Meteor.methods({
 		return link;
 	},
 
+	'links.deleteLink'({name}) {
+		if (!Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		name = name.toLowerCase();
+
+		let link = Links.findOne({"name": name});
+		if (!link) throw new Meteor.Error("non-existent");
+
+		if (link.owner === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), "admin")) {
+			Links.remove({"name": name});
+			return "deleted";
+		} else {
+			throw new Meteor.Error("not-authorized");
+		}
+	},
+
 	'link.verifyPassword'({name, password}) {
 		name = name.toLowerCase();
 		let link = Links.findOne({"name": name});
