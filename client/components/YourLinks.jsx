@@ -11,7 +11,7 @@ export default class YourLinks extends TrackerReact(React.Component) {
 		if (!links) return <div></div>;
 		return <div>
 			<h3>Your Links</h3>
-			<table className="striped">
+			<table className="striped links-table">
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -24,12 +24,13 @@ export default class YourLinks extends TrackerReact(React.Component) {
 				</thead>
 				<tbody>
 					{links.map((link) => {
+						let date = new Date(link.expires_after);
 						return <tr key={link._id}>
 							<td>{link.name}</td>
 							<td>{link.url}</td>
 							<td>{link.require_login ? "Yes" : "No"}</td>
 							<td>{link.require_password ? "Yes" : "No"}</td>
-							<td>{link.expires ? expires.expires : "No"}</td>
+							<td>{link.expires ? date.toLocaleDateString() + " " + date.toLocaleTimeString() : "No"}</td>
 							<td><button className="btn"><i className="fa fa-trash-o" aria-hidden="true" /></button></td>
 						</tr>
 					})}
