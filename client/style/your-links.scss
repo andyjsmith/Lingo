@@ -6,6 +6,10 @@
 	table-layout: fixed;
 }
 
+.links-table button {
+	padding: 0 12px;
+}
+
 // Name
 .links-table th:nth-of-type(1) {
 	width: 200px;
@@ -28,10 +32,15 @@
 
 // Expires
 .links-table th:nth-of-type(5) {
-	width: 200px;
+	width: 100px;
+}
+
+// Owner
+.links-table th:nth-of-type(6) {
+	width: 150px;
 }
 
 // Actions
-.links-table th:nth-of-type(6) {
-	width: 100px;
+.links-table th:last-of-type {
+	width: 75px;
 }

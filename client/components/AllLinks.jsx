@@ -16,7 +16,7 @@ export default class YourLinks extends TrackerReact(React.Component) {
 		let links = Links.find({});
 		if (!links) return <div></div>;
 		return <div>
-			<h3>Your Links</h3>
+			<h3>All Links</h3>
 			<table className="striped links-table">
 				<thead>
 					<tr>
