@@ -7,3 +7,11 @@ Meteor.publish("links.userLinks", function() {
 
 	return Links.find({"owner": this.userId});
 });
+
+Meteor.publish("links.allLinks", function() {
+	if (!this.userId || !Roles.userIsInRole(this.userId, "admin")) {
+		throw new Meteor.Error("not-authorized");
+	}
+
+	return Links.find({});
+});
