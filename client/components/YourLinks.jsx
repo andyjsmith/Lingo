@@ -4,7 +4,6 @@ import TrackerReact from "meteor/ultimatejs:tracker-react";
 export default class YourLinks extends TrackerReact(React.Component) {
 	componentDidMount() {
 		Meteor.subscribe("links.userLinks");
-		$
 	}
 
 	deleteLink(name) {
